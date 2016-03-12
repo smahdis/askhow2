@@ -1,0 +1,88 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+     <dimen name="feed_item_margin">10dp</dimen>
+    <dimen name="feed_item_padding_top_bottom">20dp</dimen>
+    <dimen name="feed_item_padding_left_right">15dp</dimen>
+    <dimen name="feed_item_profile_pic">50dp</dimen>
+    <dimen name="feed_item_profile_info_padd">10dp</dimen>
+    <dimen name="feed_item_profile_name">15dp</dimen>
+    <dimen name="feed_item_timestamp">13dp</dimen>
+    <dimen name="feed_item_status_pad_left_right">15dp</dimen>
+    <dimen name="feed_item_status_pad_top">13dp</dimen>
+    <dimen name="feed_item_corner_radius">3dp</dimen>
+    <dimen name="feed_item_border_width">1dp</dimen>
+
+    <!-- All of the possible tile background colors -->
+    <array name="background_colors">
+        <item>#f16364</item>
+        <item>#f58559</item>
+        <item>#f9a43e</item>
+        <item>#e4c62e</item>
+        <item>#67bf74</item>
+        <item>#59a2be</item>
+        <item>#2093cd</item>
+        <item>#ad62a7</item>
+    </array>
+
+    <!-- All of the possible tile background colors -->
+    <array name="tag_colors">
+        <item>#f16364</item>
+        <item>#f58559</item>
+        <item>#f9a43e</item>
+        <item>#e4c62e</item>
+        <item>#67bf74</item>
+        <item>#59a2be</item>
+        <item>#2093cd</item>
+        <item>#ad62a7</item>
+        <item>#00213B</item>
+        <item>#00623B</item>
+        <item>#006292</item>
+        <item>#0062E8</item>
+        <item>#00A400</item>
+        <item>#00A47E</item>
+        <item>#3C0059</item>
+        <item>#701EB7</item>
+        <item>#B553B7</item>
+        <item>#E54363</item>
+        <item>#4374E6</item>
+        <item>#093145</item>
+        <item>#0c374d</item>
+        <item>#0d3d56</item>
+        <item>#3c6478</item>
+        <item>#107896</item>
+        <item>#1496bb</item>
+
+
+    </array>
+
+    <!-- The default letter tile text size -->
+    <dimen name="tile_letter_font_size">33sp</dimen>
+    <!-- The deafult tile size -->
+    <dimen name="letter_tile_size">64dp</dimen>
+
+    <!--used by AppIntro-->
+    <dimen name="round_rect_radius">8dp</dimen>
+    <dimen name="round_rect_stroke">2dp</dimen>
+    <dimen name="padding_normal">10dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+
+
+
+    <dimen name="tags_margin">5dp</dimen>
+
+    <dimen name="login_margin_top">50dp</dimen>
+    <dimen name="splash_title_font_size">20sp</dimen>
+    <dimen name="splash_hint_font_size">18sp</dimen>
+
+
+
+
+
+
+
+</resources>

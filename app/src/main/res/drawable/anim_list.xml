@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="true">
+    <item
+        android:drawable="@drawable/svg_checkmarkup"
+        android:state_checked="true"
+        android:id="@+id/pause_state" />
+    <item
+        android:drawable="@drawable/svg_upvote"
+        android:id="@+id/play_state" />
+    <transition android:fromId="@id/play_state" android:toId="@id/pause_state" android:reversible="true">
+        <animated-vector android:drawable="@drawable/svg_upvote">
+            <target android:name="d" android:animation="@anim/morph_upvote_to_checkmark" />
+        </animated-vector>
+    </transition>
+</animated-selector>

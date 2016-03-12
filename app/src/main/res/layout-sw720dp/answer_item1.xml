@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/feed_bg">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_bg"
+        android:background="@color/colorPrimary">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_content_ll"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:layout_toRightOf="@+id/fabCL"
+            android:layout_toEndOf="@+id/fabCL">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/feed_item_padding_left_right"
+                android:paddingRight="@dimen/feed_item_padding_left_right" >
+
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user" >
+                </ImageView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toRightOf="@id/profilePic"
+                    android:paddingLeft="@dimen/feed_item_profile_info_padd" >
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mahdi Seifollahi"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:id="@+id/timestamp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="July 10, 2015"
+                        android:textColor="@color/timestamp"
+                        android:textSize="12dp"
+                        android:layout_gravity="left"
+                        android:gravity="left" />
+                </LinearLayout>
+
+
+                <ImageButton
+                    android:id="@+id/show_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/show_more"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/profilePic"
+                    android:layout_alignBottom="@+id/profilePic"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerInside">
+                </ImageButton>
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/horizontal_line" />
+
+            <TextView
+                android:id="@+id/questionTitleTV"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="چرا انسان برای رفتن به فضا یا دریا نیاز به پوشیدن لباس مخصوص داره؟"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:textSize="22dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:ellipsize="end"
+                android:textColor="#fff"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/questionDescTV"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="تنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکمتنسبیمشتبمستبمستیبکم"
+                android:textSize="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:ellipsize="end"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/txtUrl"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:linksClickable="true"
+                android:padding="2dp"
+                android:textColorLink="@color/link"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tags_ll"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/tags"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:gravity="center"-->
+                <!--android:text="عمومی"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:padding="5dp"-->
+                <!--android:background="@drawable/border_with_background"-->
+                <!--android:textSize="12dp" />-->
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/horizontal_line_simple" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/fabCL"
+            android:orientation="vertical"
+            android:layout_margin="15dp"
+            android:background="@drawable/glossy_background"
+            android:layout_alignBottom="@+id/post_content_ll"
+            android:gravity="center_vertical"
+            android:layout_alignTop="@+id/post_content_ll"
+            android:layout_alignParentEnd="false">
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="0.0dip"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:src = "@drawable/upvote"
+                android:layout_gravity="center"
+                android:id="@+id/upvote"
+                android:scaleType="centerInside" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="50"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:id="@+id/voteDisplayDigit" />
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="0.0dip"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1.0"
+                android:background="?attr/selectableItemBackground"
+                android:layout_gravity="center"
+                android:src = "@drawable/downvote"
+                android:id="@+id/downvote"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

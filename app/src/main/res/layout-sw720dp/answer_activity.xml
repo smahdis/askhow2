@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/root"
+    tools:context="com.example.mahdi.askhow.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
+                <libs.CanaroTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="#fff"
+                    android:text="چرا عاقل کند کاری که باز آید پشیمانی؟"
+                    android:textSize="20sp" />
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/avloadingIndicatorView"
+                    android:visibility="visible"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="20dp"
+                    app:indicator="LineScaleParty"
+                    />
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:divider="#00000000"
+            android:listSelector="#00000000"
+            android:layoutAnimation="@anim/layout_item_slide_in"
+            android:scrollbars="vertical"
+            android:layout_below="@+id/toolbar_layout" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

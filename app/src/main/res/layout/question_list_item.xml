@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="15dp"
+    android:layout_height="wrap_content">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:id="@+id/linearLayout"
+
+        android:layout_toRightOf="@+id/fabCL"
+        android:layout_toEndOf="@+id/fabCL">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="چرا ایستگاه فضایی باید به دور زمین بچرخه؟"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"
+            android:id="@+id/questionTitleTV"
+            android:gravity="right"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی اابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی اابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی اابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی اابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از چرا وقتی که ایستگاه فضایی میتونه ثابت باشه باید به دور زمین بچرخه؟ مثلا وقتی از "
+            android:id="@+id/questionDescTV"
+            android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/fabCL"
+        android:orientation="vertical">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabu1"
+            app:fabSize="mini"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            app:elevation="0dp"
+            android:layout_weight="1.0"
+            android:src="@drawable/upvote" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabu2"
+            app:fabSize="mini"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            app:elevation="0dp"
+            android:layout_weight="1.0"
+            android:src="@drawable/downvote" />
+        <!--<Button-->
+            <!--android:id="@+id/dialogButtonOK"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0.0dip"-->
+            <!--android:layout_weight="1.0"-->
+            <!--android:background="@drawable/upvote"-->
+            <!--android:text="Create" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/dialogButtonCancel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0.0dip"-->
+            <!--android:layout_weight="1.0"-->
+            <!--android:background="@drawable/downvote"-->
+            <!--android:text="Cancel" />-->
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:id="@+id/fabCL"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_alignBottom="@+id/linearLayout"-->
+        <!--android:layout_alignTop="@+id/linearLayout">-->
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fabu"-->
+            <!--app:fabSize="mini"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:elevation="0dp"-->
+            <!--android:src="@drawable/upvote" />-->
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fabd"-->
+            <!--app:fabSize="mini"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:elevation="0dp"-->
+            <!--android:src="@drawable/downvote" />-->
+    <!--</LinearLayout>-->
+
+</RelativeLayout>

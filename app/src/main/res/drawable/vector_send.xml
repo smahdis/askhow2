@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="64dp"
+    android:width="64dp"
+    android:viewportHeight="1024"
+    android:viewportWidth="1024" >
+
+    <path
+        android:name="quote"
+        android:fillColor="#f4c600"
+        android:pathData="@string/svg_send"/>
+</vector>

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mahdi.askhow.MainActivity">
+    <!--<item-->
+        <!--android:id="@+id/action_search"-->
+        <!--android:title="Search"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:icon="@drawable/search"-->
+        <!--app:actionViewClass = "android.support.v7.widget.SearchView"-->
+        <!--app:showAsAction="collapseActionView|ifRoom" />-->
+
+    <item
+        android:id="@+id/action_send"
+        android:orderInCategory="100"
+        android:title="Send"
+        android:icon="@drawable/vector_send"
+        app:showAsAction="always" />
+</menu>

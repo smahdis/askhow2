@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3F51B5</color>
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <color name="colorAccent">#b5a9f0</color>
+
+    <color name="textColor">#FFF</color>
+    <color name="textColorbubble1">#000</color>
+    <color name="textColorbubble2">#e2ecf6</color>
+    <color name="textFieldColor">#fff</color>
+    <color name="textShadow">#FFF</color>
+    <color name="listViewBg">#DADFEE</color>
+    <color name="sendLightColor">#8897BF</color>
+    <color name="sendMeduimColor">#5D6CA5</color>
+    <color name="sendDarkColor">#515F9F</color>
+    <color name="barDarkColor">#CECECE</color>
+    <color name="barMeduimColor">#DFDEE0</color>
+    <color name="barLightColor">#F2F2F2</color>
+    <color name="second_grey">#ff999999</color>
+    <color name="card_white">#ffffffff</color>
+    <color name="card_shadow">#8c666666</color>
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
+    <color name="actionbarBackground">#991757</color>
+
+
+    <color name="list_item_title">#303030</color>
+    <color name="list_background">#fff</color>
+    <color name="list_background_pressed">#bdbdbd</color>
+    <color name="list_divider">#272727</color>
+    <color name="counter_text_bg">#626262</color>
+    <color name="counter_text_color">#c5c4c4</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="feed_bg">#d3d6db</color>
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#a0a3a7</color>
+
+    <color name="red">#f44336</color>
+    <color name="pink">#e91e63</color>
+    <color name="purple">#9c27b0</color>
+    <color name="purpledeep">#673ab7</color>
+    <color name="A100">#ea80fc</color>
+    <color name="blue">#2196f3</color>
+    <color name="indigo">#3f51b5</color>
+
+    <!--<color name="guillotine_background">#444153</color>-->
+    <!--<color name="guillotine_background_dark">#383547</color>-->
+    <color name="selected_item_color">#30d1d5</color>
+
+
+</resources>

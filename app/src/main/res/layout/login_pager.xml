@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/layout_sms"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="@dimen/login_margin_top"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/textTitleLogin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="برای شروع شماره همراه خود و یک نام کاربری وارد کنید."
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/splash_hint_font_size" />
+
+            <TextView
+                android:id="@+id/loginErrortxt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/splash_hint_font_size"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/inputName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="نام کاربری - به انگلیسی"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+
+
+                <EditText
+                    android:id="@+id/inputMobile"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="شماره ده رقمی همراه: 09xxxxxxxx"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:maxLength="11"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp">
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_request_sms"-->
+                        <!--style="@style/SelectableItemBackground"-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="?attr/selectableItemBackground"-->
+                        <!--android:backgroundTint="#b9dff9"-->
+                        <!--android:text="تایید"-->
+                        <!--android:textColor="@android:color/white"-->
+                        <!--android:textSize="14dp" />-->
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:cpb_iconComplete="@drawable/ic_action_accept"
+                        app:cpb_textComplete="ثبت شدید"
+                        app:cpb_textError="خطا"
+                        app:cpb_textIdle="تایید" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/colorAccent"
+                        android:indeterminateTintMode="src_atop"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

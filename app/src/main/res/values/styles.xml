@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="morphButtonStyle">@style/Widget.MorphButton</item>
+
+        <!--<item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">#b9dff9</item>
+    </style>
+
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+
+
+    <!--<style name="WindowAnimationTransition">-->
+        <!--<item name="android:windowEnterAnimation">@android:anim/fade_in</item>-->
+        <!--<item name="android:windowExitAnimation">@android:anim/fade_out</item>-->
+    <!--</style>-->
+
+
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="morphButtonStyle">@style/Widget.MorphButton</item>
+    </style>
+
+
+
+
+
+</resources>
