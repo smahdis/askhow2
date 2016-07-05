@@ -7,160 +7,224 @@
     android:fitsSystemWindows="true"
     android:id="@+id/root"
     tools:context="com.example.mahdi.askhow.AskActivity">
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/base_view"
-        >
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/toolbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:layout_gravity="right"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-            <libs.CanaroTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="#fff"
-                android:text="طرح سئوال"
-                android:textSize="20sp" />
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:background="#227db4"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="30dp"
-        android:paddingRight="10dp"
-        android:layout_below="@+id/toolbar_layout">
+        android:layout_height="match_parent" >
 
         <RelativeLayout
-            android:id="@+id/relative_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" >
-
-            <EditText
-                android:id="@+id/postTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="#edf7fd"
-                android:ellipsize="end"
-                android:hint="عنوان سئوال"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:singleLine="true"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relative_container1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:background="#7de3f5" >
+            android:layout_height="match_parent"
+            android:id="@+id/base_view"
+            >
 
-            <com.wnafee.vector.MorphButton
-                android:contentDescription="نقل قول"
-                android:id="@+id/quote_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                app:vc_backgroundTint="#eb4f38"
-                app:vc_foregroundTint="#eb4f38"
-                app:vc_startDrawable="@drawable/vector_quote"
-                app:vc_endDrawable="@drawable/vector_quote"/>
-
-            <com.wnafee.vector.MorphButton
-                android:id="@+id/link_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/quote_btn"
-                android:layout_marginLeft="5dp"
-                android:scaleType="centerInside"
-                app:vc_backgroundTint="#eb4f38"
-                app:vc_foregroundTint="#9d55b8"
-                app:vc_startDrawable="@drawable/vector_link"
-                app:vc_endDrawable="@drawable/vector_link"/>
-
-            <com.wnafee.vector.MorphButton
-                android:id="@+id/image_btn"
-                android:layout_width="32dp"
-                android:layout_height="30dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/link_btn"
-                android:layout_marginLeft="5dp"
-                android:scaleType="centerInside"
-                app:vc_backgroundTint="#33AC56"
-                app:vc_foregroundTint="#33AC56"
-                app:vc_startDrawable="@drawable/vector_image"
-                app:vc_endDrawable="@drawable/vector_image"/>
-
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/postContent"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="توضیحات"
-            android:paddingLeft="5dp"
-            android:paddingTop="10dp"
-            android:paddingRight="8dp"
-            android:textSize="24dp"
-            android:background="#ecf4f5"
-            android:minLines="10">
-        </EditText>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_vertical" >
-
-            <EditText
-                android:id="@+id/postTags"
-                android:layout_width="fill_parent"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="#edf7fd"
-                android:ellipsize="end"
-                android:hint="کلمات کلیدی سئوال شما"
-                android:paddingBottom="10dp"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:layout_gravity="right"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+                    <libs.CanaroTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="#fff"
+                        android:text="طرح سئوال"
+                        android:textSize="20sp" />
+
+                    <com.wnafee.vector.MorphButton
+                        android:id="@+id/send_btn"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="right"
+                        android:layout_margin="10dp"
+                        app:vc_backgroundTint="#f4c600"
+                        app:vc_foregroundTint="#f4c600"
+                        app:vc_startDrawable="@drawable/vector_send"
+                        app:vc_endDrawable="@drawable/vector_send"/>
+
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
                 android:paddingLeft="10dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:singleLine="true"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:layout_below="@+id/toolbar_layout">
 
+                <RelativeLayout
+                    android:id="@+id/relative_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" >
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/avloadingIndicatorView"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"
+                        app:indicator="BallTrianglePath"
+                        />
+                    <EditText
+                        android:id="@+id/postTitle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="#edf7fd"
+                        android:layout_toRightOf="@id/avloadingIndicatorView"
+                        android:hint="عنوان سئوال"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="20dp"
+                        android:textColorHint="@color/second_grey"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:imeOptions="actionNext"
+                        android:textSize="24dp"
+                        android:textStyle="bold" >
+                        <requestFocus/>
+                        </EditText>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relative_container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="#7de3f5" >
+
+                    <com.wnafee.vector.MorphButton
+                        android:contentDescription="نقل قول"
+                        android:id="@+id/quote_btn"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        app:vc_backgroundTint="#eb4f38"
+                        app:vc_foregroundTint="#eb4f38"
+                        app:vc_startDrawable="@drawable/vector_quote"
+                        app:vc_endDrawable="@drawable/vector_quote"/>
+
+                    <com.wnafee.vector.MorphButton
+                        android:id="@+id/link_btn"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/quote_btn"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="centerInside"
+                        app:vc_backgroundTint="#eb4f38"
+                        app:vc_foregroundTint="#9d55b8"
+                        app:vc_startDrawable="@drawable/vector_link"
+                        app:vc_endDrawable="@drawable/vector_link"/>
+
+                    <com.wnafee.vector.MorphButton
+                        android:id="@+id/image_btn"
+                        android:layout_width="32dp"
+                        android:layout_height="30dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/link_btn"
+                        android:layout_marginLeft="5dp"
+                        android:scaleType="centerInside"
+                        app:vc_backgroundTint="#33AC56"
+                        app:vc_foregroundTint="#33AC56"
+                        app:vc_startDrawable="@drawable/vector_image"
+                        app:vc_endDrawable="@drawable/vector_image"/>
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/postContent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="توضیحات"
+                    android:padding="10dp"
+                    android:textSize="24dp"
+                    android:background="#ecf4f5"
+                    android:minLines="10"
+                    android:textDirection="rtl">
+                </EditText>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    android:background="#edf7fd"
+                    android:gravity="right">
+
+                    <EditText
+                        android:id="@+id/postTags"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:background="#edf7fd"
+                        android:hint="کلمات کلیدی"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp"
+                        android:textSize="24dp"
+                        android:textDirection="rtl"
+                        android:singleLine="true" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tags_ll"
+                        android:layout_alignParentRight="true"
+                        android:layoutDirection="rtl"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+
+                        android:gravity="right">
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/images_parent"
+                        android:gravity="right">
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
         </RelativeLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</RelativeLayout>
+
 </android.support.design.widget.CoordinatorLayout>

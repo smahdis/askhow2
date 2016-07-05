@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:height="1500dp"
+    android:width="1400dp"
+    app:vc_viewportWidth="973.125"
+    app:vc_viewportHeight="1024"
+    android:viewportHeight="1300"
+    android:viewportWidth="1200">
+
+    <path
+        android:name="search"
+        android:fillColor="#ffffff"
+        app:vc_pathData="@string/search_image"
+        app:vc_strokeColor="#ffffff"
+        app:vc_strokeWidth="6"
+        app:vc_fillColor="#ffffff"
+        android:pathData="@string/search_image"/>
+</vector>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:duration="2500"
+    android:propertyName="pathData"
+    android:valueFrom="@string/close_image"
+    android:valueTo="@string/search_image"
+    android:valueType="pathType"
+    app:vc_valueType="pathType" />

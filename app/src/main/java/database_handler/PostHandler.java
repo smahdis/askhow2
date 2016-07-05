@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Items.Post;
+import Items.User;
 
 public class PostHandler {
 
@@ -238,7 +239,7 @@ public class PostHandler {
 	public List<Post> getAllPosts(int type) {
 		open();
 		List<Post> postList = new ArrayList<>();
-		String selectQuery = "SELECT  * FROM " + post_table + " WHERE " + KEY_IS_QUESTION + " = " + type + " order by _id ASC ";
+		String selectQuery = "SELECT  * FROM " + post_table + " WHERE " + KEY_IS_QUESTION + " = " + type + " order by _id ASC limit 10 ";
 
         Cursor cursor = mDb.rawQuery(selectQuery, null);
 		// looping through all rows and adding to list
@@ -324,8 +325,36 @@ public class PostHandler {
 		open();
 		ContentValues values = new ContentValues();
 		values.put(KEY_VOTE_TYPE, voteType);
-        values.put(KEY_VOTES, votes);
-        this.mDb.update(post_table, values, KEY_POST_MYSQL_ID + " =? ",
-                new String[] { String.valueOf(postID) });
+		values.put(KEY_VOTES, votes);
+		this.mDb.update(post_table, values, KEY_POST_MYSQL_ID + " =? ",
+				new String[] { String.valueOf(postID) });
 	}
+
+
+	/*
+		This method return the poster's info
+		There are 4 infos that we curently have: name, avatar, degree, mysql_id
+ */
+	public User returnUserInfo(int post_mysql_id) {
+		open();
+		String selectQuery = "SELECT  * FROM " + post_table + " WHERE " + KEY_POST_MYSQL_ID + " = " + post_mysql_id +";";
+
+		Cursor cursor = mDb.rawQuery(selectQuery, null);
+		User user = new User();
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+
+			user.setUserName(cursor.getString(2));
+			user.setAvatar(cursor.getString(3));
+			user.setDegree(cursor.getString(4));
+			user.setMysql_id(cursor.getInt(5));
+
+
+		}
+		cursor.close();
+
+		return user;
+
+	}
+
 }

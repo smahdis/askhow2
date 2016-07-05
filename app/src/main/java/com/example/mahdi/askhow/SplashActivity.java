@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -50,6 +51,7 @@ import libs.CirclePageIndicator;
 import libs.ColorShades;
 import libs.DeactivatableViewPager;
 import libs.SessionManager;
+import libs.Statics;
 import libs.UsernameValidator;
 
 
@@ -354,7 +356,7 @@ public class SplashActivity extends AppCompatActivity {
         String tag_json_obj = "json_obj_req";
 
 //        String url = "http://192.168.44.242/askhow/v1/register";
-        String url = "http://192.168.42.190/askhow/v1/register";
+        String url = Statics.IP_ADDRESS + "register";
 
 //                Map<String, String> params = new HashMap<String, String>();
 //                params.put("username", username.getText().toString());
@@ -378,15 +380,16 @@ public class SplashActivity extends AppCompatActivity {
                     public void onResponse(String response)
                     {
                         try {
-
+                            Log.d("registeration detail", response + " reg ");
                             JSONObject jo = new JSONObject(response);
                             String Error = jo.getString("error");
                             if(Error.equals("false")) {
+                                int mysql_id = jo.getInt("mysql_id");
                                 String username = jo.getString("username");
                                 String phone = jo.getString("phone");
                                 String token = jo.getString("token");
                                 SessionManager sm = new SessionManager(getApplicationContext());
-                                sm.createLoginSession(username, phone, token);
+                                sm.createLoginSession(mysql_id ,username, phone, token);
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                 btn_reg.setProgress(100); // set progress to 0 to switch back to normal state
                                 btn_reg.postDelayed(new Runnable() {

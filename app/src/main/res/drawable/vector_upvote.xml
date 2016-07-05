@@ -8,5 +8,6 @@
     <path
         android:name="left_arrow"
         android:fillColor="#000000"
+
         android:pathData="@string/svg_upvote"/>
 </vector>

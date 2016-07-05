@@ -1,0 +1,213 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_view_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp"
+            android:background="#0ff"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="matrix"
+                android:src="@drawable/material_back2"
+                android:transitionName="profile" />
+
+            <TextView
+                android:id="@+id/usernameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:text="John Doe"
+
+                android:textColor="#fff"
+                android:textSize="@dimen/regular_text_size"
+                android:transitionName="username" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout1"
+
+            android:background="#0ff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0ff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/number_of_questions_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:text="250"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:id="@+id/number_of_questions_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:padding="20dp"
+                    android:text="سئوالات: "
+                    android:textSize="@dimen/regular_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0ff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/number_of_answers_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:text="3"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:id="@+id/number_of_answers_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:padding="20dp"
+                    android:text="پاسخ ها: "
+                    android:textSize="@dimen/regular_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0ff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/number_of_scores_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:text="175"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:id="@+id/number_of_scores_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="right"
+                    android:layout_weight="3"
+                    android:padding="20dp"
+                    android:text="امتیاز: "
+                    android:textSize="@dimen/regular_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0ff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/degree_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:padding="20dp"
+                    android:text="تازه وارد"
+                    android:textSize="@dimen/regular_text_size" />
+
+                <TextView
+                    android:id="@+id/degree_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:text="سطح: "
+                    android:textSize="@dimen/regular_text_size" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout2"
+            android:background="#0ceeee"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="20dp"
+                android:text="تایید"
+                android:textColor="@android:color/black"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/circular_layout_bg"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                android:transitionName="profile" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

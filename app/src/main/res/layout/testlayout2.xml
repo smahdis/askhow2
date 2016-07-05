@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:background="@color/feed_bg">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/post_bg"
+        android:transitionName="postbg"
+
         android:background="@color/colorPrimary">
 
 
@@ -27,18 +29,22 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/feed_item_padding_left_right"
                 android:paddingRight="@dimen/feed_item_padding_left_right" >
-
+            <RelativeLayout
+                android:id="@+id/profileContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/profilePic"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:transitionName="profile"
                     android:layout_alignParentLeft="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/user" >
                 </ImageView>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_toRightOf="@id/profilePic"
@@ -47,8 +53,10 @@
 
                     <TextView
                         android:id="@+id/name"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:transitionName="username"
+
                         android:text="Mahdi Seifollahi"
                         android:textSize="14dp"
                         android:textStyle="bold"
@@ -56,7 +64,7 @@
 
                     <TextView
                         android:id="@+id/timestamp"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="July 10, 2015"
                         android:textColor="@color/timestamp"
@@ -64,7 +72,7 @@
                         android:layout_gravity="left"
                         android:gravity="left" />
                 </LinearLayout>
-
+</RelativeLayout>
                 <com.wnafee.vector.MorphButton
                     android:id="@+id/show_more"
                     android:layout_width="64dp"
@@ -79,7 +87,8 @@
                     app:vc_backgroundTint="#ffffff"
                     app:vc_foregroundTint="#ffffff"
                     app:vc_startDrawable="@drawable/show_more"
-                    app:vc_endDrawable="@drawable/show_more"/>
+                    app:vc_endDrawable="@drawable/show_more"
+                    android:checked="false" />
 
                 <!--<ImageButton-->
                 <!--android:id="@+id/show_more"-->
@@ -178,13 +187,13 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_alignParentLeft="true"
             android:id="@+id/fabCL"
             android:orientation="vertical"
             android:layout_margin="15dp"
             android:background="@drawable/glossy_background"
-            android:layout_alignBottom="@+id/post_content_ll"
+            android:minHeight="50dp"
             android:gravity="center_vertical"
             android:layout_alignTop="@+id/post_content_ll">
 

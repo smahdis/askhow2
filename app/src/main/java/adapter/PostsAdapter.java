@@ -14,15 +14,20 @@ import database_handler.PostHandler;
 import libs.AppController;
 import libs.LetterAvatar;
 import libs.MethodLibs;
+import libs.OnLoadMoreListener;
 import libs.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import Items.Post;
+import libs.ShowProfileDialog;
+import libs.Statics;
 
 import android.animation.AnimatorSet;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -33,6 +38,11 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +53,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,10 +64,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.example.mahdi.askhow.AskActivity;
+import com.example.mahdi.askhow.ProfileViewDialogActivity;
 import com.example.mahdi.askhow.R;
+import com.wang.avi.AVLoadingIndicatorView;
 import com.wnafee.vector.MorphButton;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder> {
+public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Post> postList;
     private TypedArray mColors;
@@ -65,7 +79,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     TextView tag;
     LinearLayout.LayoutParams lp;
     private static ClickListener clickListener;
-    private String urlJsonArry = "http://192.168.42.190/askhow/v1/vote/:";
+    private String urlJsonArry = Statics.IP_ADDRESS + "vote/:";
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+
+    private OnLoadMoreListener mOnLoadMoreListener;
+
+    static final int VISIBLE_THRESHOLD = 5;
+
+
+    private boolean isLoading;
+
+    View view;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, desc, poster, date, votesDigit;
@@ -76,7 +101,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         public int color;
         public int color2;
         public List<String> tags;
-        public ImageButton showMore;
+        public MorphButton showMore;
+        public RelativeLayout profileContainer;
 
         //        public View upVote, downVote;
         public ViewGroup parent;
@@ -98,12 +124,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             date = (TextView) view.findViewById(R.id.timestamp);
             avatar = (ImageView) view.findViewById(R.id.profilePic);
             postBG = (RelativeLayout) view.findViewById(R.id.post_bg);
+            profileContainer = (RelativeLayout) view.findViewById(R.id.profileContainer);
             postContent = (LinearLayout) view.findViewById(R.id.postContent);
             votesDigit = (TextView) view.findViewById(R.id.voteDisplayDigit);
             tags_ll = (LinearLayout) view.findViewById(R.id.tags_ll);
             upVote = (MorphButton) view.findViewById(R.id.upvote);
             downVote = (MorphButton) view.findViewById(R.id.downvote);
-//            showMore = (ImageButton) view.findViewById(R.id.show_more);
+            showMore = (MorphButton) view.findViewById(R.id.show_more);
             parent = (ViewGroup) view.findViewById(R.id.fabCL);
             ph = new PostHandler(context);
             voteDown_isChecked = false;
@@ -139,50 +166,40 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             postContent.setOnClickListener(this);
 
 
-//            showMore.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    Drawable drawable = avatar.getDrawable();
-//                    if (drawable instanceof Animatable) {
-//                        poster.setText("Animated");
-//                        ((Animatable) drawable).start();
-//                    }
-//
-//                    //Creating the instance of PopupMenu
-//                    PopupMenu popup = new PopupMenu(context, v);
-//                    //Inflating the Popup using xml file
-//                    popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-//
-//                    //registering popup with OnMenuItemClickListener
-//                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                        public boolean onMenuItemClick(MenuItem item) {
-//                            Toast.makeText(context, "You Clicked : " + item.getTitle() + " " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//                            return true;
-//                        }
-//                    });
-//
-//                    popup.show();//showing popup menu
-//                }
-//            });//closing the setOnClickListener method
+            showMore.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Drawable drawable = avatar.getDrawable();
+                    if (drawable instanceof Animatable) {
+                        poster.setText("Animated");
+                        ((Animatable) drawable).start();
+                    }
+
+                    //Creating the instance of PopupMenu
+                    PopupMenu popup = new PopupMenu(context, v);
+                    //Inflating the Popup using xml file
+                    popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                    //registering popup with OnMenuItemClickListener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Toast.makeText(context, "You Clicked : " + item.getTitle() + " " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+
+                    popup.show();//showing popup menu
+                }
+            });
 
 
-//            drawable = downVote.getDrawable();
-//            if (drawable instanceof Animatable) {
-//                ((Animatable) drawable).start();
-//            }
         }
 
         @Override
         public void onClick(View v) {
-            clickListener.onItemClick(getAdapterPosition(), v);
+            clickListener.onItemClick(getAdapterPosition(), v, postBG);
         }
-
-//        @Override
-//        public boolean onLongClick(View v) {
-//            clickListener.onItemLongClick(getAdapterPosition(), v);
-//            return false;
-//        }
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
@@ -190,7 +207,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
     public interface ClickListener {
-        void onItemClick(int position, View v);
+        void onItemClick(int position, View v, View postBG);
 //        void onItemLongClick(int position, View v);
     }
 
@@ -203,138 +220,175 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 //    private final DialogInterface.OnClickListener mOnClickListener = new MyCustomCallBack();
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.testlayout2, parent, false);
-
-        return new MyViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        View itemView = LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.testlayout2, parent, false);
+//
+//        return new MyViewHolder(itemView);
+        if (viewType == VIEW_TYPE_ITEM) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.testlayout2, parent, false);
+            return new MyViewHolder(view);
+        } else if (viewType == VIEW_TYPE_LOADING) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_loading_item, parent, false);
+            return new LoadingViewHolder(view);
+        }
+        return null;
     }
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Post post = postList.get(position);
-        context = holder.itemView.getContext();
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder1, int position) {
+//        // you can cache getItemCount() in a member variable for more performance tuning
+//        if(!isLoading && (getItemCount() <= (position + VISIBLE_THRESHOLD)) ) {
+//            if(mOnLoadMoreListener != null) {
+//                mOnLoadMoreListener.onLoadMore(position);
+//            }
+//            isLoading = true;
+//        }
 
-        holder.title.setText(post.getPostTitle());
-        holder.desc.setText(post.getPostDesc());
-        holder.poster.setText(post.getPosterName() + " - " + post.getDate());
-        holder.date.setText(post.getAnswers() + " answers - " + post.getViews() + " views");
-        holder.votesDigit.setText(post.getVotes() + "");
+        if (holder1 instanceof MyViewHolder) {
+            final Post post = postList.get(position);
 
-        holder.title.setTextColor(Color.WHITE);
-        holder.desc.setTextColor(Color.WHITE);
-        holder.poster.setTextColor(Color.WHITE);
-        holder.date.setTextColor(Color.WHITE);
+            final MyViewHolder holder = (MyViewHolder) holder1;
 
+            context = holder.itemView.getContext();
 
-        holder.tags = Arrays.asList(post.getTags().split(","));
+            holder.title.setText(post.getPostTitle());
+            holder.desc.setText(post.getPostDesc());
+            holder.poster.setText(post.getPosterName() + " - " + post.getDate());
+            holder.date.setText(post.getAnswers() + " answers - " + post.getViews() + " views");
+            holder.votesDigit.setText(post.getVotes() + "");
 
-
-        final Resources res = context.getResources();
-        final int tileSize = res.getDimensionPixelSize(R.dimen.letter_tile_size);
-        final LetterAvatar tileProvider = new LetterAvatar(context);
-        Bitmap letterTile;// = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName(), tileSize, tileSize);
-
-        if (Math.abs(post.getPost_mysql_id()) % 8 == Math.abs(post.getPosterName().hashCode()) % 8) {
-            letterTile = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName() + post.getPost_mysql_id(), tileSize, tileSize);
-        } else
-            letterTile = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName(), tileSize, tileSize);
+            holder.title.setTextColor(Color.WHITE);
+            holder.desc.setTextColor(Color.WHITE);
+            holder.poster.setTextColor(Color.WHITE);
+            holder.date.setTextColor(Color.WHITE);
 
 
-        holder.avatar.setImageBitmap(MethodLibs.getCircularBitmap(letterTile));
+            holder.tags = Arrays.asList(post.getTags().split(","));
 
 
-        mColors = context.getResources().obtainTypedArray(R.array.background_colors);
-        TypedArray tColors = context.getResources().obtainTypedArray(R.array.background_colors);
+            final Resources res = context.getResources();
+            final int tileSize = res.getDimensionPixelSize(R.dimen.letter_tile_size);
+            final LetterAvatar tileProvider = new LetterAvatar(context);
+            Bitmap letterTile;// = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName(), tileSize, tileSize);
+
+            if (Math.abs(post.getPost_mysql_id()) % 8 == Math.abs(post.getPosterName().hashCode()) % 8) {
+                letterTile = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName() + post.getPost_mysql_id(), tileSize, tileSize);
+            } else
+                letterTile = tileProvider.getLetterTile(post.getPosterName(), post.getPosterName(), tileSize, tileSize);
+
+
+            holder.avatar.setImageBitmap(MethodLibs.getCircularBitmap(letterTile));
+
+
+            mColors = context.getResources().obtainTypedArray(R.array.background_colors);
+            TypedArray tColors = context.getResources().obtainTypedArray(R.array.background_colors);
 
 //        final Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
 //        final Canvas c = new Canvas();
 //        c.setBitmap(bitmap);
 
-        holder.color = Math.abs(post.getPost_mysql_id()) % 8;
-        holder.postBG.setBackgroundColor(tColors.getColor(holder.color, Color.BLACK));//pickColor(String.valueOf(post.getPost_mysql_id())));
+            holder.color = Math.abs(post.getPost_mysql_id()) % 8;
+            holder.postBG.setBackgroundColor(tColors.getColor(holder.color, Color.BLACK));//pickColor(String.valueOf(post.getPost_mysql_id())));
 
-
-        for (int i = 0; i < 10; i++) {
-            if (i >= holder.tags.size())
-                holder.tvs[i].setVisibility(View.GONE);
-            else {
-                holder.tvs[i].setVisibility(View.VISIBLE);
-                holder.tvs[i].setText(holder.tags.get(i));
+            //10 = max number of tags
+            for (int i = 0; i < 10; i++) {
+                if (i >= holder.tags.size())
+                    holder.tvs[i].setVisibility(View.GONE);
+                else {
+                    holder.tvs[i].setVisibility(View.VISIBLE);
+                    holder.tvs[i].setText(holder.tags.get(i));
 //                holder.color2 = (Math.abs(holder.tags.get(i).hashCode())) % 8;
-                if (Math.abs(post.getPost_mysql_id()) % 8 == (Math.abs(holder.tags.get(i).hashCode())) % 8) {
-                    holder.color = (Math.abs(holder.tags.get(i).hashCode()) + 1) % 8;
-                } else
-                    holder.color = Math.abs(holder.tags.get(i).hashCode()) % 8;
+                    if (Math.abs(post.getPost_mysql_id()) % 8 == (Math.abs(holder.tags.get(i).hashCode())) % 8) {
+                        holder.color = (Math.abs(holder.tags.get(i).hashCode()) + 1) % 8;
+                    } else
+                        holder.color = Math.abs(holder.tags.get(i).hashCode()) % 8;
 
-                holder.tvs[i].setBackgroundColor(mColors.getColor(holder.color, Color.BLACK));
+                    holder.tvs[i].setBackgroundColor(mColors.getColor(holder.color, Color.BLACK));
+                }
             }
-        }
 
-        holder.upVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.upVote.setEnabled(false);
-                holder.downVote.setEnabled(false);
-                if (post.getVoteType() != 1)
-                    makeNetworkCall(true, post, 1, holder);
-                else
-                    makeNetworkCall(true, post, 0, holder);
-            }
-        });
+            holder.upVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.upVote.setEnabled(false);
+                    holder.downVote.setEnabled(false);
+                    if (post.getVoteType() != 1)
+                        makeNetworkCall(true, post, 1, holder);
+                    else
+                        makeNetworkCall(true, post, 0, holder);
+                }
+            });
 
-        holder.downVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.upVote.setEnabled(false);
-                holder.downVote.setEnabled(false);
-                if (post.getVoteType() != -1)
-                    makeNetworkCall(false, post, -1, holder);
-                else
-                    makeNetworkCall(false, post, 0, holder);
-            }
-        });
+            holder.downVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.upVote.setEnabled(false);
+                    holder.downVote.setEnabled(false);
+                    if (post.getVoteType() != -1)
+                        makeNetworkCall(false, post, -1, holder);
+                    else
+                        makeNetworkCall(false, post, 0, holder);
+                }
+            });
 
 
-        if(post.getVoteType()==1)
-        {
-            holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
-            holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
-        }
-        else
-        {
-            if(post.getVoteType()==-1)
-            {
-                holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
-                holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
-            }
-            else {
-                holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+            if (post.getVoteType() == 1) {
+                holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
                 holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+            } else {
+                if (post.getVoteType() == -1) {
+                    holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
+                    holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                } else {
+                    holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                    holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                }
+
+            }
+            holder.upVote.setForegroundTintMode(PorterDuff.Mode.MULTIPLY);
+            holder.downVote.setForegroundTintMode(PorterDuff.Mode.MULTIPLY);
+
+            holder.profileContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ProfileViewDialogActivity.class);
+                    intent.putExtra("post_mysql_id", post.getPost_mysql_id());
+                    intent.putExtra("poster_mysql_id", post.getPosterMysqlID());
+                    Pair<View, String> p1 = Pair.create((View) holder.avatar, "profile");
+                    Pair<View, String> p2 = Pair.create((View) holder.poster, "username");
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) context, p1, p2);
+//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, (View)holder.profileContainer, "profile");
+                    ActivityCompat.startActivity((Activity) context, intent,
+                            options.toBundle());
+
+                }
+            });
+        } else if (holder1 instanceof LoadingViewHolder) {
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder1;
+            if (getItemCount() != 1) {
+                Post post1 = postList.get(position - 1);
+                context = holder1.itemView.getContext();
+                TypedArray tColors = context.getResources().obtainTypedArray(R.array.background_colors);
+                loadingViewHolder.color = Math.abs(post1.getPost_mysql_id()) % 8;
+                loadingViewHolder.loadMoreContainer.setBackgroundColor(tColors.getColor(loadingViewHolder.color, Color.BLACK));//pickColor(String.valueOf(post.getPost_mysql_id())));
             }
 
+//            loadingViewHolder.progressBar.setIndeterminate(true);
+//            loadingViewHolder.progressBar.setVisibility(View.VISIBLE);
+            if (isLoading)
+                loadingViewHolder.progressBar.setVisibility(View.VISIBLE);
+            else
+                loadingViewHolder.progressBar.setVisibility(View.GONE);
         }
-        holder.upVote.setForegroundTintMode(PorterDuff.Mode.MULTIPLY);
-        holder.downVote.setForegroundTintMode(PorterDuff.Mode.MULTIPLY);
-
-//        holder.upVote.setOnStateChangedListener(new MorphButton.OnStateChangedListener() {
-//            @Override
-//            public void onStateChanged(MorphButton.MorphState changedTo, boolean isAnimating) {
-//                if(changedTo == MorphButton.MorphState.END)
-//                    makeNetworkCall(post.getPost_mysql_id(), 1, holder);
-//                else
-//                    makeNetworkCall(post.getPost_mysql_id(), 0, holder);
-//            }
-//        });
-//        swapView(createMorphableView(R.drawable.animated_vector_upvote, R.drawable.animated_vector_checkmarkup, Color.parseColor("#FF5252")));
-//        swapView(createMorphableView(R.drawable.animated_vector_upvote, R.drawable.animated_vector_checkmarkup, Color.parseColor("#ffffff"),holder.itemView.getContext()), holder.parent, R.id.upvote);
     }
-    //
-    @Override
-    public int getItemCount() {
-        return postList.size();
-    }
+//    //
+//    @Override
+//    public int getItemCount() {
+//        return postList.size();
+//    }
 
     public Post getItem(int position) {
         return postList.get(position);
@@ -382,7 +436,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
         StringRequest sr = new StringRequest(Request.Method.PUT, urlJsonArry + post.getPost_mysql_id(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(upvote)
+                if (upvote)
                     upVote(holder, post, vote_type, response);
                 else
                     downVote(holder, post, vote_type, response);
@@ -392,7 +446,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("error.respsonse", "Error: " + error.getMessage());
                 Log.d("error", "" + error.getMessage() + "," + error.toString());
-                if(upvote)
+                if (upvote)
                     holder.upVote.setState(MorphButton.MorphState.START, true);
                 else
                     holder.downVote.setState(MorphButton.MorphState.START, true);
@@ -400,14 +454,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 holder.downVote.setEnabled(true);
 
             }
-        }){
-
+        }) {
 
 
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<> ();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 params.put("post_id", String.valueOf(post.getPost_mysql_id()));
                 params.put("vote_type", String.valueOf(vote_type));
 
@@ -428,28 +480,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
 
-    private void upVote(final MyViewHolder holder,Post post, int vote_type, String response)
-    {
+    private void upVote(final MyViewHolder holder, Post post, int vote_type, String response) {
         Log.d("response ok", response.toString());
         try {
             JSONObject json = new JSONObject(response);
             String Error = json.getString("error");
-            if(Error.equals("false"))
-            {
+            if (Error.equals("false")) {
                 int votes = json.getInt("votes");
                 post.setVoteType(vote_type);
                 post.setVotes(votes);
                 holder.votesDigit.setText(String.valueOf(votes));
                 Log.d("votes", holder.votesDigit.getText().toString() + " - " + votes);
                 holder.ph.updateVoteType(post.getPost_mysql_id(), vote_type, votes);
-                if(vote_type!=0) {
+                if (vote_type != 0) {
                     holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
                     holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
                     holder.downVote.invalidate();
 
-                }
-                else
-                {
+                } else {
                     holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
                     holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
                 }
@@ -467,15 +515,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 }, 2000);
 
 //                        upVote(holder, vote_type);
-            }
-            else
-            {
+            } else {
                 holder.upVote.setState(MorphButton.MorphState.START, true);
                 holder.upVote.setEnabled(true);
                 holder.downVote.setEnabled(true);
             }
-
-
 
 
         } catch (JSONException e) {
@@ -487,27 +531,23 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
 
-    private void downVote(final MyViewHolder holder,Post post, int vote_type, String response)
-    {
+    private void downVote(final MyViewHolder holder, Post post, int vote_type, String response) {
         Log.d("response ok", response.toString());
         try {
             JSONObject json = new JSONObject(response);
             String Error = json.getString("error");
-            if(Error.equals("false"))
-            {
+            if (Error.equals("false")) {
                 int votes = json.getInt("votes");
                 post.setVoteType(vote_type);
                 post.setVotes(votes);
                 holder.votesDigit.setText(votes + "");
                 holder.ph.updateVoteType(post.getPost_mysql_id(), vote_type, votes);
-                if(vote_type!=0) {
+                if (vote_type != 0) {
                     holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#EEE333")));
                     holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
                     holder.upVote.invalidate();
 
-                }
-                else
-                {
+                } else {
                     holder.downVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
                     holder.upVote.setForegroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
                 }
@@ -525,15 +565,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
                 }, 2000);
 
 //                        downVote(holder, vote_type);
-            }
-            else
-            {
+            } else {
                 holder.downVote.setState(MorphButton.MorphState.START, true);
                 holder.downVote.setEnabled(true);
                 holder.upVote.setEnabled(true);
             }
-
-
 
 
         } catch (JSONException e) {
@@ -545,12 +581,70 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
     }
 
 
-    private void swapView(View newView, final ViewGroup vg, int id){
+
+
+    /*
+
+    Load More codes
+     */
+
+    @Override
+    public int getItemViewType(int position) {
+//        return postList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return (position >= postList.size()) ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
+    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
+        this.mOnLoadMoreListener = mOnLoadMoreListener;
+    }
+
+    @Override
+    public int getItemCount() {
+        return postList == null ? 0 : postList.size() + 1;
+    }
+
+
+    static class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public AVLoadingIndicatorView progressBar;
+        public LinearLayout loadMoreContainer;
+        public int color;
+
+        public LoadingViewHolder(View itemView) {
+            super(itemView);
+            progressBar = (AVLoadingIndicatorView) itemView.findViewById(R.id.progressBar1);
+            loadMoreContainer = (LinearLayout) itemView.findViewById(R.id.loadMoreContainer);
+        }
+    }
+
+    public void setLoaded() {
+        isLoading = false;
+        LoadingViewHolder lvh = null;
+        if (view != null)
+            lvh = new LoadingViewHolder(view);
+        if (lvh != null && lvh.progressBar != null)
+            lvh.progressBar.setVisibility(View.GONE);
+    }
+
+    public void setLoading() {
+        isLoading = true;
+//        LoadingViewHolder lvh = new LoadingViewHolder(view);
+//        if(lvh.progressBar!=null)
+//            lvh.progressBar.setVisibility(View.GONE);
+    }
+
+    public boolean isLoading1() {
+        return isLoading;
+//        LoadingViewHolder lvh = new LoadingViewHolder(view);
+//        if(lvh.progressBar!=null)
+//            lvh.progressBar.setVisibility(View.GONE);
+    }
+
+    private void swapView(View newView, final ViewGroup vg, int id) {
         View toRemove = vg.findViewById(id);
         vg.removeView(toRemove);
         newView.setId(id);
         vg.addView(newView, toRemove.getLayoutParams());
-        ((MorphButton)newView).setState(MorphButton.MorphState.START, true);
+        ((MorphButton) newView).setState(MorphButton.MorphState.START, true);
 //        ((MorphButton)newView).setOnStateChangedListener(new MorphButton.OnStateChangedListener() {
 //            @Override
 //            public void onStateChanged(MorphButton.MorphState changedTo, boolean isAnimating) {
@@ -567,15 +661,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.MyViewHolder
 //        vg.addView(newView, toRemove.getLayoutParams());
     }
 
-    private View createMorphableView(int startDrawable, int endDrawable, int color, Context context){
+    private View createMorphableView(int startDrawable, int endDrawable, int color, Context context) {
         MorphButton mb = new MorphButton(context);
         mb.setForegroundTintList(ColorStateList.valueOf(color));
         mb.setForegroundTintMode(PorterDuff.Mode.MULTIPLY);
         mb.setBackgroundColor(Color.TRANSPARENT);
         mb.setStartDrawable(startDrawable);
         mb.setEndDrawable(endDrawable);
-        mb.setState(MorphButton.MorphState.END,true);
-        return  mb;
+        mb.setState(MorphButton.MorphState.END, true);
+        return mb;
     }
 }
 

@@ -10,12 +10,10 @@ public class DBCreator {
 	private static DatabaseHelper sInstance;
 
 	public static final String DATABASE_NAME = "askhow_db";
-	public static final int DATABASE_VERSION = 13;
+	public static final int DATABASE_VERSION = 15;
 
-//	public static final String CREATE_users_table = User_Handler.CREATE_user_table;
 	public static final String createPostTable = PostHandler.CREATE_POST_TABLE;
-//	public static final String CREATE_ROOM_TABLE = Group_Handler.CREATE_group_table;
-//	public static final String CREATE_SOCIAL_TABLE = SocialHandler.CREATE_social_table;
+	public static final String CREATE_AUTOSAVE_TABLE = AutoSaveHandler.CREATE_AUTOSAVE_TABLE;
 
 	private final Context context;
 	private DatabaseHelper DBHelper;
@@ -66,7 +64,7 @@ public class DBCreator {
 		public void onCreate(SQLiteDatabase db) {
 //			db.execSQL(CREATE_users_table);
 			db.execSQL(createPostTable);
-//			db.execSQL(CREATE_ROOM_TABLE);
+			db.execSQL(CREATE_AUTOSAVE_TABLE);
 //			db.execSQL(CREATE_SOCIAL_TABLE);
 		}
 		
@@ -75,7 +73,7 @@ public class DBCreator {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //			db.execSQL("DROP TABLE IF EXISTS " + User_Handler.user_table);
 			db.execSQL("DROP TABLE IF EXISTS " + PostHandler.post_table);
-//			db.execSQL("DROP TABLE IF EXISTS " + Group_Handler.group_table);
+			db.execSQL("DROP TABLE IF EXISTS " + AutoSaveHandler.autosave_table);
 //			db.execSQL("DROP TABLE IF EXISTS " + SocialHandler.social_table);
 			onCreate(db);
 		}

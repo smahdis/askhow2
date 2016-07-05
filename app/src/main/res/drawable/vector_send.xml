@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:height="64dp"
     android:width="64dp"
+    app:vc_viewportWidth="1024"
+    app:vc_viewportHeight="1024"
     android:viewportHeight="1024"
-    android:viewportWidth="1024" >
+    android:viewportWidth="1024">
 
     <path
         android:name="quote"
         android:fillColor="#f4c600"
+        app:vc_pathData="@string/svg_send"
+        app:vc_strokeColor="#ffffff"
+        app:vc_strokeWidth="6"
+        app:vc_fillColor="#ffffff"
         android:pathData="@string/svg_send"/>
 </vector>

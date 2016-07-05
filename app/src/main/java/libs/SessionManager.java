@@ -20,6 +20,8 @@ public class SessionManager {
 	// Shared pref mode
 	int PRIVATE_MODE = 0;
 
+
+
 	// Sharedpref file name
 	private static final String PREF_NAME = "ASKHOW_PREF";
 
@@ -58,8 +60,9 @@ public class SessionManager {
 	/**
 	 * Create login session
 	 * */
-	public void createLoginSession(String username, String phone, String token) {
+	public void createLoginSession(int mysql_id, String username, String phone, String token) {
 		editor.putBoolean(IS_LOGGED_IN, true);
+		editor.putInt(KEY_MYSQLID, mysql_id);
 		editor.putString(KEY_USERNAME, username);
 		editor.putString(KEY_PHONE, phone);
 		editor.putString(KEY_TOKEN, token);
@@ -188,9 +191,9 @@ public class SessionManager {
 		return pref.getString(KEY_USERNAME, "");
 	}
 //
-//	public String getFirstName() {
-//		return pref.getString(KEY_FIRST_NAME, "");
-//	}
+	public int getKeyMysql_id() {
+		return pref.getInt(KEY_MYSQLID,0);
+	}
 //
 //	public String getLastName() {
 //		return pref.getString(KEY_LAST_NAME, "");
@@ -203,10 +206,10 @@ public class SessionManager {
 //		return pref.getString(KEY_AVATAR, "default.jpg");
 //	}
 //
-//	public void setAvatar(String avatar) {
-//		editor.putString(KEY_AVATAR, avatar);
-//		editor.commit();
-//	}
+	public void setMySQL_ID(int ID) {
+		editor.putInt(KEY_MYSQLID, ID);
+		editor.commit();
+	}
 //
 //	public String getMobile() {
 //		return pref.getString(KEY_MOBILE, "");

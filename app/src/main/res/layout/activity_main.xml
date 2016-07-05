@@ -8,10 +8,9 @@
     tools:context="com.example.mahdi.askhow.MainActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/base_view"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/toolbar_layout"
@@ -24,31 +23,96 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" >
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
                 <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avloadingIndicatorView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/avloadingIndicatorView"
-                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
-                    app:indicator="LineScaleParty"
+                    android:visibility="gone"
+                    app:indicator="BallPulse"
                     />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layoutDirection="rtl">
+
+                    <!--<com.wnafee.vector.MorphButton-->
+                        <!--android:id="@+id/search_btn"-->
+                        <!--android:layout_width="32dp"-->
+                        <!--android:layout_height="32dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_gravity="right"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                        <!--android:scaleType="centerInside"-->
+                        <!--app:vc_backgroundTint="#BBDEFB"-->
+                        <!--app:vc_endDrawable="@drawable/animated_vector_search"-->
+                        <!--app:vc_foregroundTint="#BBDEFB"-->
+                        <!--app:vc_startDrawable="@drawable/animated_vector_close" />-->
+
+                    <RelativeLayout
+                        android:id="@+id/searchview_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/search_btn"
+                        android:visibility="invisible"
+                        android:background="#edf7fd">
+
+                        <com.wang.avi.AVLoadingIndicatorView
+                            android:id="@+id/pb_loading_indicator"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:visibility="invisible"
+                            app:indicator="BallClipRotatePulse"
+                            app:indicator_color="#42A5F5" />
+
+                        <libs.DelayAutoCompleteTextView
+                            android:id="@+id/autoComplete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/pb_loading_indicator"
+                            android:background="#edf7fd"
+                            android:ems="10"
+                            android:hint="جستجو"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="4dp"
+                            android:textColorHint="@color/second_grey"
+                            android:textColor="@color/purpledeep"
+                            android:theme="@style/Autocomplete" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"
-            android:layout_below="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar_layout">
 
             <include layout="@layout/content_main" />
 
             <fragment
                 android:id="@+id/fragment_navigation_drawer"
-                class = "com.example.mahdi.askhow.FragmentDrawer"
+                class="com.example.mahdi.askhow.FragmentDrawer"
                 android:layout_width="400dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
@@ -58,12 +122,15 @@
 
 
     </RelativeLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        app:layout_behavior="libs.ScrollAwareFABBehavior"
+        app:layout_anchorGravity="bottom|right|end"
         android:src="@drawable/ask" />
 </android.support.design.widget.CoordinatorLayout>
 

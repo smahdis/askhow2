@@ -71,16 +71,20 @@
     <dimen name="padding_normal">10dp</dimen>
     <dimen name="margin_small">5dp</dimen>
 
+    <dimen name="postImagePreviewSize">64dp</dimen>
+
 
 
     <dimen name="tags_margin">5dp</dimen>
+    <dimen name="tags_font_size">10dp</dimen>
 
     <dimen name="login_margin_top">50dp</dimen>
     <dimen name="splash_title_font_size">20sp</dimen>
     <dimen name="splash_hint_font_size">18sp</dimen>
 
 
-
+    <dimen name="regular_text_size">26sp</dimen>
+    <dimen name="big_margin">30dp</dimen>
 
 
 
